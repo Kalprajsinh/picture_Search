@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>picture search</title>
+
+  <link rel="website icon" type="png" href="icon.png">
+
+  <link rel="stylesheet" href="search.css">
+  <style>
+    body{
+      background-color: #23395d;
+    }
+    #c {
+      border: none;
+      display: block;
+      margin: 20px auto 0;
+      text-align: center; 
+    }
+
+    #infile {
+      display: block;
+      margin: 20px auto 0;
+      text-align: center;
+      font-weight:bold;
+      cursor: pointer;
+      background-color: lightblue;
+      width: 185px;
+    }
+
+    a {
+      display: block;
+      max-width: 290px;
+      text-align: center;
+      border: 1px solid #999;
+      border-radius: 0.2em;
+      padding: 0.1em 0.3em;
+      text-decoration: none;
+      background-color: #eee;
+    }
+
+    .controloffilter {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    #doBtn {
+      border: none;
+      color: white;
+      padding: 7px 50px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 13px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      background-color: lightgreen;
+      color: black;
+      border: 2px solid green;
+    }
+
+    .rBtn {
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 10px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      background-color: white;
+      color: black;
+      border: 2px solid #FF4646;
+    }
+
+    .rBtn:hover {
+      background-color: #FF4646;
+      color: white;
+    }
+
+    .fbtn {
+      margin: 10px;
+      text-align: center;
+
+
+    }
+
+    .b {
+
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 10px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      background-color: white;
+      color: black;
+      border: 2px solid #008CBA;
+    }
+
+    .b:hover {
+      background-color: #008CBA;
+      color: white;
+    }
+    .b1 {
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 10px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      background-color: white;
+      color: black;
+      border: 2px solid #008CBA;
+    }
+
+@media screen and (max-width: 600px)
+    {
+      .b1 {
+      display: none;
+    }
+    }
+    .b1:hover {
+      background-color: #008CBA;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="section">
+    <nav class="navbar">
+      <form action="search.html">
+        <input type="text" autocomplete="off" name="search" class="serchbox" placeholder="search images">
+        <button class="serchbutt" type="submit">Search</button>
+      </form>
+      <form action="index.html">
+        <button class="home" type="submit">Home</button>
+      </form>
+    </nav>
+  </header>
+  <canvas id="c"></canvas>
+  <button id="infile"> <input style="cursor: pointer;" type="file" onchange="handleFiles(this.files)"></button>
+  <div class="controloffilter">
+    <div>
+      <label for="blurRange" style="color: white; font-weight: bold;">Blur:</label>
+      <input type="range" id="blurRange" min="0" max="10" value="0" step="0.1" name="blur" data-elm="blur"
+        data-suffix="" data-range="output" style="--rng-percent: 50%; --rng-value: 5;" onchange="applyFilters()">
+    </div>
+    <div>
+      <label for="brightnessRange" style="color: white; font-weight: bold;">Brightness:</label>
+      <input type="range" id="brightnessRange" min="0" max="200" value="100" step="1" name="brightness"
+        data-elm="brightness" data-suffix="%" data-range="output" style="--rng-percent: 50%; --rng-value: 100;"
+        onchange="applyFilters()">
+    </div>
+    <div>
+      <label for="contrastRange" style="color: white; font-weight: bold;">Contrast:</label>
+      <input type="range" id="contrastRange" min="0" max="200" value="100" step="1" name="contrast" data-elm="contrast"
+        data-suffix="%" data-range="output" style="--rng-percent: 50%; --rng-value: 100;" onchange="applyFilters()">
+    </div>
+    <div>
+      <label for="grayscaleRange" style="color: white; font-weight: bold;">Grayscale:</label>
+      <input type="range" id="grayscaleRange" min="0" max="100" value="0" step="1" name="grayscale" data-elm="grayscale"
+        data-suffix="%" data-range="output" style="--rng-percent: 50%; --rng-value: 0;" onchange="applyFilters()">
+    </div>
+    <div>
+      <label for="sepiaRange" style="color: white; font-weight: bold;">Sepia:</label>
+      <input type="range" id="sepiaRange" min="0" max="100" value="0" step="1" name="sepia" data-elm="sepia"
+        data-suffix="%" data-range="output" style="--rng-percent: 50%; --rng-value: 0;" onchange="applyFilters()">
+    </div>
+    <div>
+  <label for="posterizeOpacityRange" style="color: white; font-weight: bold;">Posterize Opacity:</label>
+  <input type="range" id="posterizeOpacityRange" min="0" max="1" value="1" step="0.1" name="posterizeOpacity" data-elm="posterizeOpacity" data-suffix="" data-range="output" style="--rng-percent: 50%; --rng-value: 0;" onchange="applyFilters()">
+</div>
+    <div>
+      <label for="invertRange" style="color: white; font-weight: bold;">Invert:</label>
+      <input type="range" id="invertRange" min="0" max="100" value="0" step="1" name="invert" data-elm="invert"
+        data-suffix="%" data-range="output" style="--rng-percent: 50%; --rng-value: 0;" onchange="applyFilters()">
+    </div>
+    <div>
+      <label for="hueRotateRange" style="color: white; font-weight: bold;">Hue Rotate:</label>
+      <input type="range" id="hueRotateRange" min="0" max="360" value="0" step="1" name="hueRotate" data-elm="hueRotate"
+        data-suffix="deg" data-range="output" style="--rng-percent: 50%; --rng-value: 0;" onchange="applyFilters()">
+    </div>
+    <div>
+      <label for="saturationRange" style="color: white; font-weight: bold;">Saturation:</label>
+      <input type="range" id="saturationRange" min="0" max="200" value="100" step="1" name="saturation"
+        data-elm="saturation" data-suffix="%" data-range="output" style="--rng-percent: 50%; --rng-value: 100;"
+        onchange="applyFilters()">
+    </div>
+    <div class="fbtn">
+      <button class="rBtn" onclick="resetFilters()">Reset</button>
+      <button class="b" data-filter="Grayscale(1) saturate(1)">BandW</button>
+      <button class="b" data-filter="hue-rotate(150deg) brightness(0.6) contrast(150%)">DarkSlate</button>
+      <button class="b" data-filter="saturate(200%)">Saturation</button>
+      <br>
+      <button class="b" data-filter="hue-rotate(100deg)">Turquoise</button>
+      <button class="b" data-filter="brightness(150%)">Brightness</button>
+      <button class="b" data-filter="contrast(200%)">Contrast</button>
+      <button class="b" data-filter="brightness(110%) contrast(90%) saturate(150%) hue-rotate(-20deg)">SummerSky</button>
+      <button class="b1" data-filter="brightness(110%) saturate(150%) hue-rotate(-40deg)">Walden</button>
+    </div>
+    <br><br>
+    <a id="doBtn">Download the image</a>
+    <br><br><br>
+  </div>
+
+  <script src="filter.js"></script>
+
+  
+</body>
+
+</html>
