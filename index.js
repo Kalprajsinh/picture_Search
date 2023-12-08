@@ -11,6 +11,30 @@ const gallery = document.querySelector('.gallery');
 let allImages;
 let courentimg = 0;
 
+// Get the "Like" button and image in the pop-up
+const likeButton = document.querySelector('.like-button');
+const popImage = document.querySelector('.popimage');
+
+// Add a click event listener to the "Like" button
+likeButton.addEventListener('click', function () {
+  // You can perform the "like" action here, such as saving it to the user's profile.
+  // For now, let's open the image in a new tab as an example.
+  const imageUrl = popImage.src;
+
+//   window.open(imageUrl, '_blank');
+
+const downloadLink = document.createElement('a');
+downloadLink.href = imageUrl;
+downloadLink.download = 'image.jpg'; // You can specify the desired filename here
+downloadLink.style.display = 'none'; // Hide the link
+document.body.appendChild(downloadLink);
+
+downloadLink.click();
+
+// Clean up by removing the link
+document.body.removeChild(downloadLink);
+});
+
 const getImages = () => {
     fetch(random_photo)
     .then(res => res.json())
