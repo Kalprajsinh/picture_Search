@@ -257,9 +257,9 @@ input[type=text]
     margin-bottom: 20px;
     border-radius: 5px;
     cursor: pointer;
-       
-
-                }@media screen and (max-width: 900px)
+    }
+  
+  @media screen and (max-width: 900px)
   {
     .gallery-im{
     width: 100%;
@@ -333,6 +333,20 @@ input[type=text]
     text-decoration: none;
 }
 
+.like{
+  
+  padding: 5px 10px;
+  font-size: 10px;
+  font-weight: bold; 
+  background-color: #373737;
+  color: white;
+  border-radius: 5px;
+  position: absolute;
+  right: 10px;
+  margin: 10px;
+  text-decoration: none;
+}
+
 .popimage{
     width: auto;
     height: auto;
@@ -381,6 +395,7 @@ input[type=text]
 }
 
 /* Change the button color on hover */
+
 .like-button:hover {
   background-color: darkred; /* Darker red on hover */
 }
