@@ -1,3 +1,15 @@
+<?php
+session_start();
+if (isset($_GET['logout']))
+{
+
+unset($_SESSION['email']);
+$_SESSION['login_done'] = false;
+session_destroy();
+
+header('Location: index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,16 +26,27 @@
 </head>
 
 <body>
-  <!-- <div id="loader"><img src="loader1.gif" style="
+  <div id="loader"><img src="loader1.gif" style="
 width: 100%;">
-  </div> -->
+  </div>
   <nav class="nav">
     
     <a href="index.html" class="nav-txt"><img src="icon.png" width="20" height="20" style="margin-top:10px; margin-left: 7px;">Picture Search</a>
     <a href="filter.html" class="nav-txt">Filter</a>
+    <?php
+
+    if (isset($_SESSION['login_done'])) {
+    ?>
+      <a href="?logout" class="nav-txt" name="logout">Logout</a>
+    <?php
+    }
+    else{
+    ?>
     <a href="login.php" class="nav-txt">Login</a>
     <a href="signup.php" class="nav-txt">Signup</a>
-    
+    <?php
+    }
+    ?>
     <hr style="margin-top: 4px;">
     <a href="filter.html" class="like">My Likes❤️</a>
   </nav>
@@ -117,6 +140,44 @@ width: 100%;">
   </nav>
 
   <script src="index.js"></script>
+  <script>
+    likeButton.addEventListener('click', function () {
+    <?php
+    if (isset($_SESSION['login_done'])) {
+    ?>
+    const imageUrl = popImage.src;
+  
+    // Create a form element
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'image.php';
+  
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'imageUrl';
+    input.value = imageUrl;
+  
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+
+    form.submit();
+    <?php
+    }
+    else
+    {
+      echo '<div style=" position: fixed;top: 0;left: 0;right: 0;z-index: 10; " id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+      Please Login to like or save images !
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>'; 
+    }
+    ?>
+  });
+
+  </script>
+  
 </body>
 
 </html>

@@ -1,11 +1,50 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
-$databaseConnection = new MongoDB\Client('mongodb://localhost:27017');
+$databaseConnection = new MongoDB\Client('mongodb+srv://kalpraj51:rBKe0Qr0ba9M1VyM@cluster0.zhl61c1.mongodb.net/?retryWrites=true&w=majority');
+// $databaseConnection = new MongoDB\Client('mongodb+srv://kalpraj51:ZPqjW2AbcL9BMLG7@cluster0.zhl61c1.mongodb.net/?retryWrites=true&w=majority');
+
+// mongodb+srv://kalpraj51:rBKe0Qr0ba9M1VyM@cluster0.zhl61c1.mongodb.net/?retryWrites=true&w=majority
 
 $myDatabase = $databaseConnection->picture_search;
 
 $userCollection = $myDatabase->users; 
+
+if (isset($_POST['signup'])) {
+
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $password = sha1($_POST['password']);
+
+  $data = array(
+      "Name" => $name,
+      "Email" => $email,
+      "Password" => $password
+  );
+
+  // insert into MongoDB Users Collection
+  $insert = $userCollection->insertOne($data);
+
+  if ($insert) {
+    echo '<div id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> You have successfully registered !
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>';
+echo '<script>setTimeout(function() { 
+    document.getElementById("alert").style.display = "none"; 
+    window.location.href = "login.php"; 
+}, 1090);</script>';
+  } else {
+    echo '<div id="alert" class="alert alert-danger alert-dismissible fade show" role="alert">
+    Registration Failed !
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>';
+  }
+}
 
 ?>
 
@@ -15,6 +54,7 @@ $userCollection = $myDatabase->users;
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <title>Signup Form</title>
   <style>
     body {
@@ -23,9 +63,6 @@ $userCollection = $myDatabase->users;
       font-family: Arial, sans-serif;
       background-color: #23395d;
       color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       height: 100vh;
     }
 
@@ -34,7 +71,7 @@ $userCollection = $myDatabase->users;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 300px;
+      width: 350px;
       text-align: center;
     }
 
@@ -72,40 +109,11 @@ $userCollection = $myDatabase->users;
   </style>
 </head>
 <body>
-  <div>
-    <?php 
-
-if (isset($_POST['signup'])) {
-
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-  $password = sha1($_POST['password']);
-
-  $data = array(
-      "name" => $name,
-      "Email" => $email,
-      "Password" => $password
-  );
-
-  // insert into MongoDB Users Collection
-  $insert = $userCollection->insertOne($data);
-
-  if ($insert) {
-      ?>
-      <center><h4 style="color: green;">Successfully Registered</h4></center>
-      <center><a href="login.php">Login</a></center>
-      <?php
-  } else {
-      ?>
-      <center><h4 style="color: red;">Registration Failed</h4></center>
-      <center><h4 style="color: red;">Try Again</h4></center>
-      <?php
-  }
-}
-    ?>
-  </div>
-  <div class="signup-form">
-    <h2>Signup</h2>
+<div style="display: flex;
+      align-items: center;
+      justify-content: center;">
+  <div class="signup-form" style=" margin-top: 20vh;">
+  <p style="color:#23395d; font-weight:bold; font-size: 20px;">Signup</p>
     <form action="#" method="post">
       <div class="form-group">
         <label for="name" style="color:#23395d; font-weight:bold">Name:</label>
@@ -125,6 +133,9 @@ if (isset($_POST['signup'])) {
       </div>
     </form>
   </div>
-
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
