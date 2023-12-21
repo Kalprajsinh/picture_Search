@@ -380,6 +380,29 @@ input[type=text]
     cursor: pointer;
 }
 
+#alert {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  padding: 15px;
+  margin-top: 20px;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  background-color: #f8d7da;
+  color: #721c24;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+.close {
+  cursor: pointer;
+  color: #721c24;
+  font-weight: bold;
+}
+
 .like-button {
   text-transform: capitalize;
   padding: 10px 20px;
@@ -389,6 +412,7 @@ input[type=text]
   position: absolute;
   bottom: 10px;
   right: 170px;
+  margin: 10px;
   text-decoration: none;
   cursor: pointer;
   font-weight: bold;
@@ -401,6 +425,35 @@ input[type=text]
 }
 
 .like-button::before {
+  content: '\2764';
+  font-size: 12px;
+  position: relative;
+  top: 0px; /* Adjust the vertical position */
+  left: -6px; /* Adjust the horizontal position */
+}
+
+.like-button2 {
+  text-transform: capitalize;
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 10px;
+  right: 170px;
+  margin: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Change the button color on hover */
+
+.like-button2:hover {
+  background-color: darkred; /* Darker red on hover */
+}
+
+.like-button2::before {
   content: '\2764';
   font-size: 12px;
   position: relative;

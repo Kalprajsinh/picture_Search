@@ -48,7 +48,7 @@ width: 100%;">
     }
     ?>
     <hr style="margin-top: 4px;">
-    <a href="filter.html" class="like">My Likes❤️</a>
+    <a href="Likes.php" class="like">My Likes❤️</a>
   </nav>
   <hr>
   
@@ -140,44 +140,6 @@ width: 100%;">
   </nav>
 
   <script src="index.js"></script>
-  <script>
-    likeButton.addEventListener('click', function () {
-    <?php
-    if (isset($_SESSION['login_done'])) {
-    ?>
-    const imageUrl = popImage.src;
-  
-    // Create a form element
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = 'image.php';
-  
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'imageUrl';
-    input.value = imageUrl;
-  
-    form.appendChild(input);
-
-    document.body.appendChild(form);
-
-    form.submit();
-    <?php
-    }
-    else
-    {
-      echo '<div style=" position: fixed;top: 0;left: 0;right: 0;z-index: 10; " id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
-      Please Login to like or save images !
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-    </div>'; 
-    }
-    ?>
-  });
-
-  </script>
-  
 </body>
 
 </html>

@@ -36,6 +36,7 @@
     height: 30px;
     margin: 5px;
     justify-content: center;
+    cursor: pointer;
 }
 
 .home{
@@ -52,6 +53,7 @@
     right: 10px;
     top: 0px;
     margin: 5px;
+    cursor: pointer;
     /* justify-content: center; */
 }
 
@@ -199,6 +201,7 @@
     bottom: 10px;
     right: 10px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .popimage{
@@ -275,16 +278,14 @@
   cursor: pointer;
 }
 
-/* Change the button color on hover */
 .like-button:hover {
-  background-color: darkred; /* Darker red on hover */
+  background-color: darkred;
 }
 
-/* Style the button as a heart shape using CSS pseudoelements */
 .like-button::before {
-  content: '\2764'; /* Unicode heart symbol */
+  content: '\2764'; 
   font-size: 14px;
   position: relative;
-  top: 0px; /* Adjust the vertical position */
-  left: -6px; /* Adjust the horizontal position */
+  top: 0px;
+  left: -6px; 
 }
